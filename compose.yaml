@@ -1,0 +1,23 @@
+name: flern
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      LOG_LEVEL: debug
+      DATABASE_URL: postgresql://user:pass@db:5432/main
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: main
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db: {}
